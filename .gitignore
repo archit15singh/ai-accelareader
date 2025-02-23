@@ -169,3 +169,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+books
+markdown_output
+json_output
+text_from_book.txt
