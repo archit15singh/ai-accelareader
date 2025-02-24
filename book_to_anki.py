@@ -181,7 +181,7 @@ def create_flashcard(deck_name, front, back, tags, api_url="http://localhost:876
 
 
 if __name__ == "__main__":
-    deck_name = "python books"
+    deck_name = "core python books"
     flashcards, tags = generate()
 
     for flashcard in flashcards:
