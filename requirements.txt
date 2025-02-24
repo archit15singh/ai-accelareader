@@ -1,3 +1,4 @@
 python-dotenv
 openai
 marker-pdf
+litellm
