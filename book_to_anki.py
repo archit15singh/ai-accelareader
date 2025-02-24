@@ -21,10 +21,7 @@ def fetch_openai_response(prompt, response_format=None):
     return response.choices[0].message.content
 
 
-def generate():
-    with open("text_from_book.txt", "r", encoding="utf-8") as f:
-        text_from_book = f.read()
-    
+def generate(text_from_book):
     if not text_from_book.strip():
         return None, None
 
@@ -180,9 +177,31 @@ def create_flashcard(deck_name, front, back, tags, api_url="http://localhost:876
         print(f"Failed to connect to Anki: {e}")
 
 
-if __name__ == "__main__":
+def main():
     deck_name = "core python books"
-    flashcards, tags = generate()
+    
+    with open("text_from_book.txt", "r", encoding="utf-8") as file:
+        book_text = file.read()
 
-    for flashcard in flashcards:
-        create_flashcard(deck_name, front=flashcard['front'], back=flashcard['back'], tags=tags)
+    sections = [
+        section.strip() 
+        for section in book_text.split("**********************************************************************") 
+        if section.strip()
+    ]
+
+    for index, section in enumerate(sections):
+        print("*"*100)
+        print(f"running index: {index}")
+        print("*"*100)
+        
+        flashcards, tags = generate(section)
+        for flashcard in flashcards:
+            create_flashcard(
+                deck_name,
+                front=flashcard['front'],
+                back=flashcard['back'],
+                tags=tags
+            )
+
+if __name__ == "__main__":
+    main()
